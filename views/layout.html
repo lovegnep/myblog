@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <% if(typeof(title) !== 'undefined' && title) {%>
+    <title><%=  title  %></title>
+    <% } %>
+    <link rel="stylesheet" href="/libs/bootstrap/css/bootstrap.css" type="text/css" />
+    <link rel="stylesheet" href="/stylesheets/common.css" type="text/css" />
+    <link rel="stylesheet" href="/stylesheets/style.css" type="text/css" />
+    <link rel="stylesheet" href="/libs/editor/editor.css" type="text/css" />
+    <link rel="stylesheet" href="/libs/webuploader/webuploader.css" type="text/css" />
+    <link rel="stylesheet" href="/libs/code-prettify/prettify.css" type="text/css" />
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.css" type="text/css" />
+    <link rel="stylesheet" href="/stylesheets/layout.css" />
+
+    <script src="/libs/jquery-2.1.0.js"></script>
+    <script src="/libs/bootstrap/js/bootstrap.js"></script>
+    <script src="/libs/markdownit.js"></script>
+</head>
+<body>
+    <div class="navigate">
+        <a href="/">好想吃肉的Blog</a>
+    </div>
+    <div id="main">
+        <%- body %>
+    </div>
+    <div class="down">
+        <p class="end"><%= config.description %></p>
+        <p class="end"><%= config.keywords %></p>
+    </div>
+</body>
+</html>

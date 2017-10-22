@@ -1,0 +1,147 @@
+<div class="theme">
+    <%  if(typeof(error) !== 'undefined' && error.length > 0) {%>
+        <p class="alarm"><%= error %></p>
+    <% }else if(typeof(theme) !== 'undefined'){ %>
+        <div class="themehead">
+            <p class="themetitle"><%= theme.title %></p>
+
+            <div class="themeinfos">
+                <span class="themei">创建于：<%= gettime(theme.create_at)  %></span>
+                <span class="themei">上次更新：<%= gettime(theme.update_at)  %></span>
+                <span class="themei">回复数：<%=  theme.reply_count  %></span>
+                <span class="themei">浏览数：<%=  theme.visit_count  %></span>
+            </div>
+        </div>
+        <div class="themecontent">
+            <%- markdown(theme.content) %>
+        </div>
+    <% }else{ %>
+        <p>未知错误</p>
+    <% } %>
+</div>
+<div class="edit-reply">
+<form action="/<%= theme._id  %>/reply" method="post">
+    <div class='markdown_editor in_editor'>
+        <div class='markdown_in_editor'>
+                    <textarea class='editor' name='t_content' rows='8'
+                              placeholder='文章支持 Markdown 语法, 请注意标记代码'
+                    ></textarea>
+
+            <div class='editor_buttons'>
+                <input type="submit" class='span-primary submit_btn' data-loading-text="提交中"
+                       value="提交">
+            </div>
+        </div>
+
+    </div>
+</form>
+</div>
+<div class="reply">
+    <% if(typeof(reply) !== 'undefined' && reply.length > 0) {
+        reply.forEach(function(re,i){ %>
+            <div class="perreply" replyid="<%= re._id %>">
+                <div class="replyinfo">
+                    <div class="replyhead">
+                    <span class="replyauthor"><%= i+1 %>楼</span><span class="replytime"><%= gettime(re.create_at) %></span>
+                        <% if(re.lou !== '') {%>
+                        <span class="replyat">@<%= re.lou %></span>
+                        <%}%>
+                    </div>
+                    <div class="userControl">
+                        <span><i class="hehe fa up_btn fa-thumbs-up uped" uped="0" title="点赞"></i>
+
+                            <span class="hehe up-count"><%= re.ups>0?re.ups:'' %></span>
+                        </span>
+                        <span><i class="hehe fa fa-reply reply2_btn" title="回复"></i></span>
+                    </div>
+                </div>
+                <div class="replycontent">
+                <%- markdown(re.content) %>
+                </div>
+                <div class="editorr">
+                    <form display="none" class='reply2_form' action='/<%= re.theme_id %>/reply' method='post'>
+                        <input type='hidden' name='reply_id' value='<%= re._id %>'/>
+                        <input type="hidden" name="lou" value="<%= i+1 %>楼"/>
+                        <div class='markdown_editor in_editor'>
+                            <div class='markdown_in_editor'>
+            <textarea class='span8 editor reply_editor'
+                      id="reply2_editor_<%= re._id %>" name='t_content' rows='4'></textarea>
+
+                                <div class='editor_buttons'>
+                                    <input class='span-primary reply2_submit_btn submit_btn'
+                                           type="submit" data-id='<%= re._id %>' data-loading-text="回复中.." value="回复">
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        <% }); %>
+    <% } %>
+</div>
+<%- partial('editor') %>
+<script>
+    $('textarea.editor').each(function() {
+        var editor = new Editor({
+            status: []
+        });
+        var $el = $(this);
+
+        editor.render(this);
+        //绑定editor
+        $(this).data('editor', editor);
+
+        var $input = $(editor.codemirror.display.input);
+        $input.keydown(function (event) {
+            if (event.keyCode === 13 && (event.ctrlKey || event.metaKey)) {
+                event.preventDefault();
+                $el.closest('form').submit();
+            }
+        });
+    });
+    $('.reply2_btn').click(function (e) {
+        var $this = $(this);
+        var replytexa = $this.closest('.perreply').find('form');
+        replytexa.show();
+    });
+    $('.up_btn').click(function (e) {
+        var $this = $(this);
+        var replyId = $this.closest('.perreply').attr('replyid');
+        var isuped = $this.attr('uped');
+        var act={act:isuped=='1'?0:1};
+        $.ajax({
+            url: '/reply/' + replyId + '/up',
+            method: 'POST',
+            data:act
+        }).done(function (data) {
+            if (data.success) {
+                //$this.removeClass('invisible');
+                var currentCount = Number($this.next('.up-count').text().trim()) || 0;
+                if (data.action === 'up') {
+                    $this.next('.up-count').text(currentCount + 1);
+                    $this.addClass('uped');
+                    $this.attr('uped','1');
+                } else {
+                    if (data.action === 'down') {
+                        if(currentCount>1){
+                            $this.next('.up-count').text(currentCount - 1);
+                        }else{
+                            $this.next('.up-count').text('');
+                        }
+
+                        $this.removeClass('uped');
+                        $this.attr('uped','0');
+                    }
+                }
+            } else {
+                alert(data.message);
+            }
+        }).fail(function (xhr) {
+            if (xhr.status === 403) {
+                alert('服务器错误。');
+            }
+        });
+    });
+</script>
