@@ -1,5 +1,5 @@
 .navigate{
-    padding: 20px;
+    height:50px;
     font-size: 20px;
     background-color: #f0f0f0;
 }
@@ -207,4 +207,18 @@ img{
 .yincang{
     float: right;
     padding-right: 10px;
+}
+#searchdiv{
+    float: right;
+    padding-right: 20px;
+}
+#headdiv{
+    float: left;
+    padding-top: 14px;
+    padding-left: 20px;
+}
+#search-select{
+    margin-top: 6px;
+    width:auto;
+    background-color: #eee;
 }

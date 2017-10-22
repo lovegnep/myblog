@@ -20,7 +20,17 @@
 </head>
 <body>
     <div class="navigate">
-        <a href="/">好想吃肉的Blog</a>
+        <div id="headdiv"><a href="/">好想吃肉的Blog</a></div>
+        <div id="searchdiv">
+            <form id="search_form" class="navbar-search" action="/search">
+                <select name="tabs" id="search-select">
+                    <option value="title" selected>标题</option>
+                    <option value="content">内容</option>
+                </select>
+                <input type="text" id="q" name="q" class="search-query span3" value="">
+            </form>
+        </div>
+
     </div>
     <div id="main">
         <%- body %>

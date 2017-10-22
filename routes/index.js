@@ -187,7 +187,78 @@ router.post('/admin',function(req,res,next){
   theme.save();
   res.render('admin',{title:'admin',tab:'',title_e:'',content:'',error:''});
 });
+router.get('/search',function(req,res,next){
+    var s_q = req.query.q||'';
+    var s_tab = req.query.tabs||'';
 
+    var tab = req.query.tab||'all';
+    var page = parseInt(req.query.page, 10) || 1;
+    page = page > 0 ? page : 1;
+    var query = {};
+    if(tab !== 'all'){
+        query.tab = tab;
+    }
+    var limit = config.list_topic_count;
+    var options = { skip: (page - 1) * limit, limit: limit, sort: '-update_at'};
+    query.deleted = false;
+    query.secret = false;
+    if(s_tab === "title"){
+        query.title={$regex:s_q,$options:"$i"};
+    }else if(s_tab === "content"){
+        query.content ={$regex:s_q,$options:"$i"};
+    }
+    var proxy = new eventproxy();
+    proxy.all('all','topview','topreply','count',function(t1,t2,t3,c){
+        res.locals.topview = t2;
+        res.locals.topreply=t3;
+        res.locals.count = c;
+        res.locals.page=page;
+        res.locals.currenttab = tab;
+        res.render('index', { title: '好想吃肉',theme:t1});
+    });
+    //查询主题数量
+    Theme.count({secret:false},function (err,count) {
+        if(err){
+            console.log("err");
+        }
+        proxy.emit('count',count);
+    });
+    //查询当前页数据
+    Theme.find(query,{},options,function (err, themes) {
+        if(err){
+            console.log("err");
+        }
+        proxy.emit('all',themes);
+        /*if(themes.length>0){
+         proxy.emit('all',themes);
+         }*/
+    });
+    //查询前3个浏览最多的主题
+    Theme.find({deleted:false,secret:false},{},{limit:3,sort:'-visit_count'},function (err,themes){
+        if(err){
+            console.log("err");
+        }
+        proxy.emit('topview',themes);
+        /*if(themes.length>0){
+         proxy.emit('topview',themes);
+         }*/
+    });
+    //查询前3个回复最多的主题
+    Theme.find({deleted:false,secret:false},{},{limit:3,sort:'-reply_count'},function (err,themes) {
+        if(err){
+            console.log("err");
+        }
+        proxy.emit('topreply',themes);
+        /*if(themes.length>0){
+         proxy.emit('topreply',themes);
+         }*/
+    })  ;
+
+
+
+
+
+});
 router.get('/theme/:id',function (req,res,next) {
     var _id = req.params.id;
     var proxy = new eventproxy();
