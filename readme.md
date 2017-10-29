@@ -1,4 +1,4 @@
-# first blog
+# tiny blog
 --------------------------
 
 This blog system is designed to be easy. It is a one person blog system, and anyone can comment on any theme without sign in.
