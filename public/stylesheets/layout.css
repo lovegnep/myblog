@@ -222,3 +222,5 @@ img{
     width:auto;
     background-color: #eee;
 }
+.themecontent table{border-right:1px solid #F00;border-bottom:1px solid #F00} 
+.themecontent table td{border-left:1px solid #F00;border-top:1px solid #F00} 
