@@ -225,3 +225,13 @@ img{
 .themecontent table{border-right:1px solid #333;border-bottom:1px solid #333} 
 .themecontent table td{border-left:1px solid #333;border-top:1px solid #333} 
 .themecontent table th{border-left:1px solid #333;border-top:1px solid #333}
+#navi ul{
+    float:right;
+    list-style: none;
+    padding-top:13px;
+    font-size: 10px;
+}
+#navi li{
+    float:left;
+    padding-right: 10px;
+}
