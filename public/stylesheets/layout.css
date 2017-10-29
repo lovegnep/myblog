@@ -223,8 +223,8 @@ img{
     background-color: #eee;
 }
 .themecontent table{border-right:1px solid #333;border-bottom:1px solid #333} 
-.themecontent table td{border-left:1px solid #333;border-top:1px solid #333} 
-.themecontent table th{border-left:1px solid #333;border-top:1px solid #333}
+.themecontent table td{border-left:1px solid #333;border-top:1px solid #333;padding:10px} 
+.themecontent table th{border-left:1px solid #333;border-top:1px solid #333;padding:10px}
 #navi ul{
     float:right;
     list-style: none;
