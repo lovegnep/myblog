@@ -235,3 +235,19 @@ img{
     float:left;
     padding-right: 10px;
 }
+#hexcode{
+    float: left;
+    padding: 10px;
+    background-color: #cccccc;
+    margin: 5px;
+}
+#strcode{
+    float: right;
+    padding: 10px;
+    background-color: #cccccc;
+    margin: 5px;
+}
+.hex-str{
+    height: 400px;
+    width: 400px
+}
