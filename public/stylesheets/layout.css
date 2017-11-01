@@ -253,3 +253,10 @@ img{
     height: 400px;
     width: 400px
 }
+#codebutton{
+    float: left;
+    margin: auto 10px;
+    /* margin-top: 18%; */
+    /* height: 50%; */
+    margin-top: 200px;
+}
