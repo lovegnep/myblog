@@ -240,12 +240,14 @@ img{
     padding: 10px;
     background-color: #cccccc;
     margin: 5px;
+    border-radius: 10px;
 }
 #strcode{
     float: right;
     padding: 10px;
     background-color: #cccccc;
     margin: 5px;
+    border-radius: 10px;
 }
 .hex-str{
     height: 400px;
