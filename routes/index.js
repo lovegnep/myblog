@@ -18,6 +18,11 @@ function gen_session(res) {
     res.cookie(config.auth_cookie_name, config.auth_cookie_val, opts); //cookie 有效期30天
 }
 
+/*16进制转字符串小工具*/
+router.get('/str',function(req,res,next){
+    res.render('hexToStr', { title: '16进制转字符串'});
+});
+
 /* 用户*/
 router.get('/', function(req, res, next) {
     console.log('ip:'+req.ip);
