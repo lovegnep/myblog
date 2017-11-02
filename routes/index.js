@@ -36,7 +36,9 @@ router.get('/', function(req, res, next) {
   var limit = config.list_topic_count;
   var options = { skip: (page - 1) * limit, limit: limit, sort: '-update_at'};
   query.deleted = false;
-  query.secret = false;
+    if(!req.session.user || req.session.user !== 'admin'){
+        query.secret = false;
+    }
   var proxy = new eventproxy();
   proxy.all('all','topview','topreply','count',function(t1,t2,t3,c){
     res.locals.topview = t2;
@@ -354,7 +356,11 @@ router.post('/:id/reply',function (req,res,next) {
        }
    });
 });
-
+router.get('/signout',function(req,res,next){
+    req.session.destroy();
+    res.clearCookie(config.auth_cookie_name, { path: '/' });
+    res.redirect('/');
+});
 router.post('/upload',function (req,res) {
     var isFileLimit = false;
     req.busboy.on('file', function (fieldname, file, filename, encoding, mimetype) {
