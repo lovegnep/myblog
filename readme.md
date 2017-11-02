@@ -14,18 +14,18 @@ To do the steps follow,you should have installed the node. The identifying code 
 	node bin/www
 	
 ## 2. tips
-This website runs with the port 3000 default, if you want to modify the port you may modify the config.js.
+This website runs with the port 80 default, if you want to modify the port you may modify the config.js.
 
 Assume that you have start the program successfully, and your server ip is 192.168.1.1, port with 3000, you may visit the homepage with 
 
-	http://192.168.1.1:3000/
+	http://192.168.1.1:80/
 
 The administrate page is on:
 
-	http://192.168.1.1:3000/admin
+	http://192.168.1.1:80/admin
 but you should go to 
 
-	http://192.168.1.1:3000/login
+	http://192.168.1.1:80/login
 ahead with the default user/pass:hehe/haha
 
 When you have go into the administrate page successfully, you can delete, edit , new and hide some theme.
