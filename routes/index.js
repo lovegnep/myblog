@@ -311,6 +311,10 @@ router.post('/:id/reply',function (req,res,next) {
    var replyid = req.body.reply_id;
    var lou = req.body.lou;
    var proxy = new eventproxy();
+   if(content === ''){
+       res.redirect('/theme/'+_id);
+       return;
+   }
    proxy.all('theme','reply',function () {
        var reply = new Reply();
        reply.theme_id = _id;
