@@ -26,9 +26,11 @@ router.get('/str',function(req,res,next){
 /* 用户*/
 router.get('/', function(req, res, next) {
     console.log('ip:'+req.ip);
+
   var tab = req.query.tab||'all';
   var page = parseInt(req.query.page, 10) || 1;
   page = page > 0 ? page : 1;
+    res.locals.sidebar=true;
   var query = {};
   if(tab !== 'all'){
     query.tab = tab;
@@ -269,6 +271,8 @@ router.get('/search',function(req,res,next){
 router.get('/theme/:id',function (req,res,next) {
     var _id = req.params.id;
     var proxy = new eventproxy();
+    res.locals.sidebar=true;
+
     proxy.all('theme','reply','topview','topreply','count',function (theme,reply,topview,topreply,count) {
         res.locals.topview = topview;
         res.locals.topreply=topreply;

@@ -47,9 +47,11 @@
     </div>
 
     <div id="main">
+        <% if(typeof(sidebar) !== 'undefined' && sidebar){ %>
         <div class="side-div">
             <%- partial('sidebar') %>
         </div>
+        <% } %>
         <div class="main-div">
             <%- body %>
         </div>
