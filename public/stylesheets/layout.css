@@ -24,7 +24,7 @@ body{
     text-align: center;
 }
 .content{
-    margin-left:185px;
+    /*margin-left:185px;*/
 }
 .author-card{
     margin-bottom:15px;
@@ -259,4 +259,21 @@ img{
     /* margin-top: 18%; */
     /* height: 50%; */
     margin-top: 200px;
+}
+.side-div{
+
+}
+.main-div{
+    float: left;
+    width: 750px;
+    padding-left: 20px;
+}
+.btn-control{
+    border: none;
+    padding: 3px;
+    border-radius: 9px;
+    font-size: 12px;
+}
+.theme-control{
+    margin-left: 400px
 }

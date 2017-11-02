@@ -269,13 +269,10 @@ router.get('/search',function(req,res,next){
 router.get('/theme/:id',function (req,res,next) {
     var _id = req.params.id;
     var proxy = new eventproxy();
-    proxy.all('theme','reply',function (theme,reply) {
-        /*var d = theme.create_at;
-        var str = d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate();
-        theme.create_at = str;
-        d = theme.update_at;
-        str = d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate();
-        theme.update_at = str;*/
+    proxy.all('theme','reply','topview','topreply','count',function (theme,reply,topview,topreply,count) {
+        res.locals.topview = topview;
+        res.locals.topreply=topreply;
+        res.locals.count = count;
         res.render('theme',{title:'theme',theme:theme,reply:reply});
     });
     Reply.find({theme_id:_id},function (err,reply) {
@@ -305,7 +302,35 @@ router.get('/theme/:id',function (req,res,next) {
         }else{
           res.render('theme',{title:'theme',error:'没有此主题'})
         }
-    })
+    });
+
+    //查询前3个浏览最多的主题
+    Theme.find({deleted:false,secret:false},{},{limit:3,sort:'-visit_count'},function (err,themes){
+        if(err){
+            console.log("err");
+        }
+        proxy.emit('topview',themes);
+        /*if(themes.length>0){
+         proxy.emit('topview',themes);
+         }*/
+    });
+    //查询前3个回复最多的主题
+    Theme.find({deleted:false,secret:false},{},{limit:3,sort:'-reply_count'},function (err,themes) {
+        if(err){
+            console.log("err");
+        }
+        proxy.emit('topreply',themes);
+        /*if(themes.length>0){
+         proxy.emit('topreply',themes);
+         }*/
+    })  ;
+    //查询主题数量
+    Theme.count({secret:false},function (err,count) {
+        if(err){
+            console.log("err");
+        }
+        proxy.emit('count',count);
+    });
 });
 router.post('/:id/reply',function (req,res,next) {
    var _id = req.params.id;

@@ -3,20 +3,20 @@
         <p class="alarm"><%= error %></p>
     <% }else if(typeof(theme) !== 'undefined'){ %>
         <div class="themehead">
-            <p class="themetitle" themeid="<%= theme._id %>"><%= theme.title %></p>
-
+            <span class="themetitle" themeid="<%= theme._id %>"><%= theme.title %></span>
+            <% if(typeof(user) !== 'undefined' && user === 'admin') { %>
+            <span class="theme-control">
+            <input type="button" class="btn-edit btn-control" value="编辑" />
+            <input type="button" class="btn-delete btn-control" value="删除" />
+            <% if(theme.secret){ %>
+            <input type="button" class="btn-secret btn-control" value="取消隐藏"/>
+            <% }else{ %>
+            <input type="button" class="btn-secret btn-control" value="隐藏"/>
+            <% } %>
+            </span>
+            <% } %>
             <div class="themeinfos">
-                <% if(typeof(user) !== 'undefined' && user === 'admin') { %>
-                <input type="button" class="btn-edit" value="编辑" />
-                <input type="button" class="btn-delete" value="删除" />
-                <% if(theme.secret){ %>
-                <input type="button" class="btn-secret" value="取消隐藏"/>
-                <% }else{ %>
-                <input type="button" class="btn-secret" value="隐藏"/>
-                <% } %>
 
-
-                <% } %>
                 <span class="themei">创建于：<%= gettime(theme.create_at)  %></span>
                 <span class="themei">上次更新：<%= gettime(theme.update_at)  %></span>
                 <span class="themei">回复数：<%=  theme.reply_count  %></span>
