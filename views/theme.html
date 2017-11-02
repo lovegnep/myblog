@@ -50,9 +50,9 @@
 <div class="reply">
     <% if(typeof(reply) !== 'undefined' && reply.length > 0) {
         reply.forEach(function(re,i){ %>
-            <% if(re.content === ''){
-                continue;
-             } %>
+            <% if(re.content === ''){ %>
+               <% continue; %>
+            <% } %>
             <div class="perreply" replyid="<%= re._id %>">
                 <div class="replyinfo">
                     <div class="replyhead">
