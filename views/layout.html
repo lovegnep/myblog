@@ -17,12 +17,16 @@
     <script src="/libs/jquery-2.1.0.js"></script>
     <script src="/libs/bootstrap/js/bootstrap.js"></script>
     <script src="/libs/markdownit.js"></script>
+    <% if(typeof(sidebar) !== 'undefined' && sidebar){ %>
+    <script src="/main.js"></script>
+    <% } %>
 </head>
 <body>
     <div class="navigate">
         <div id="headdiv"><a href="/">好想吃肉的Blog</a></div>
         <div id="navi">
             <ul>
+                <li><a href="/">首页</a></li>
                 <li>关于</li>
                 <li>联系</li>
                 <li>搜索</li>
@@ -51,6 +55,11 @@
         <div class="side-div">
             <%- partial('sidebar') %>
         </div>
+        <div id="backtotop">回到顶部</div>
+        <% if(typeof(user) !== 'undefined' && user === 'admin'){ %>
+        <div id="newtheme">新建文章</div>
+        <% } %>
+        <div id="gotobottom">飞到底部</div>
         <% } %>
         <div class="main-div">
             <%- body %>
