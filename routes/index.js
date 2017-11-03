@@ -541,5 +541,12 @@ router.post('/theme/:id/delesecret',function (req,res,next) {
         res.send(data);
     });
 });
-
+router.get('/newtheme',function(req,res,next){
+    if(typeof(req.session.user) !== 'undefined' && req.session.user === 'admin'){
+        res.render('themeCreate',{title:'新建主题',title_e:'',content:''});
+    }else{
+        console.log("wocao");
+        res.redirect('/');
+    }
+});
 module.exports = router;

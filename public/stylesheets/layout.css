@@ -277,3 +277,30 @@ img{
 .theme-control{
     margin-left: 400px
 }
+#gotobottom{
+    width: 56px;
+    color: gray;
+    padding: 12px 0px 12px 5px;
+    display: none;
+    position: fixed;
+    cursor: pointer;
+    text-align: center;
+    z-index: 20;
+    background-color: white;
+    border-radius: 12px 0px 0px 12px;
+}
+#newtheme{
+    width: 56px;
+    color: gray;
+    padding: 12px 0px 12px 5px;
+    display: block;
+    position: fixed;
+    cursor: pointer;
+    text-align: center;
+    z-index: 20;
+    background-color: white;
+    border-radius: 12px 0px 0px 12px;
+}
+#backtotop{
+    width:56px
+}
