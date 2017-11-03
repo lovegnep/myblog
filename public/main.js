@@ -3,7 +3,7 @@ $(document).ready(function () {
   var $backtotop = $('#backtotop');
   var $gotobottom = $('#gotobottom');
   var $new = $('#newtheme');
-  var top = windowHeight - $backtotop.height() - 200;
+  var top = windowHeight - $backtotop.height() - 500;
   var realheight = $(document).height();
 
   console.log('文档高：'+ $(document).height());
