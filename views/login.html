@@ -9,9 +9,9 @@
     <div class="form-login">
 
 
-    <form id='signin_form' action='/login' method='post'>
+    <form id='signin_form'>
         <div>
-            <labelfor='name'>用户名</label>
+            <label for='name'>用户名</label>
 
             <div>
                 <input id='name' name='name' size='30' type='text'/>
@@ -26,12 +26,12 @@
         </div>
         <div class="validate-img">
             <label for='valida_img'>验证码</label>
-            <input class="img-value" name="valida_img" type="text"/>
+            <input id="val-img" class="img-value" name="valida_img" type="text"/>
             <img src="<%= imgdata %>" />
         </div>
 
         <div>
-            <input type='submit' value='登录'/>
+            <input id="sublogin" type='button' value='登录'/>
         </div>
     </form>
     </div>
@@ -45,6 +45,38 @@
         }).done(function (data) {
             $this.attr('src',data.imgdata);
         }).fail(function (xhr) {
+            if (xhr.status === 403) {
+                alert('服务器错误。');
+            }
+        });
+    });
+    $('#sublogin').click(function(e){
+        var name = $('#name').val();
+        var pass = $('#pass').val();
+        var imgval = $('#val-img').val();
+        $.ajax({
+            url:'/login',
+            method:'post',
+            data:{name:name,pass:pass,valida_img:imgval}
+        }).done(function(data){
+            if(data.status === 0){
+                alert(data.err);
+                //return;
+            }else {
+                var prevLink = document.referrer;
+                if ($.trim(prevLink) === '') {
+                    location.href = 'http://192.168.91.131/login';
+                } else {
+                    if (prevLink.indexOf('192.168.91.131') == -1) {    //来自其它站点
+                        location.href = '192.168.91.131';
+                    }
+                    if (prevLink.indexOf('192.168.91.131/login') != -1) {      //来自注册页面
+                        location.href = '192.168.91.131';
+                    }
+                    location.href = prevLink;
+                }
+            }
+        }).fail(function(xhr){
             if (xhr.status === 403) {
                 alert('服务器错误。');
             }

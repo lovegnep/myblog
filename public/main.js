@@ -6,8 +6,8 @@ $(document).ready(function () {
   var top = windowHeight - $backtotop.height() - 500;
   var realheight = $(document).height();
 
-  console.log('文档高：'+ $(document).height());
-  console.log('可视窗口高：'+ $(window).height());
+  //console.log('文档高：'+ $(document).height());
+  //console.log('可视窗口高：'+ $(window).height());
 
   if($(document).height() - $(window).height() <= 50){
       $gotobottom.css({display:'none'});
@@ -20,7 +20,7 @@ $(document).ready(function () {
     $backtotop.css({ top: top, right: 0});
       $gotobottom.css({ top: top+120, right: 0});
       if($new){
-        console.log('hehe');
+        //console.log('hehe');
           $new.css({ top: top+60, right: 0});
       }
 
@@ -50,7 +50,7 @@ $(document).ready(function () {
 
   $(window).scroll(function () {
     var windowHeight = $(window).scrollTop();
-    console.log('windowHeight:'+ windowHeight+'  realheight:'+realheight);
+    //console.log('windowHeight:'+ windowHeight+'  realheight:'+realheight);
     if (windowHeight > 200) {
       $backtotop.fadeIn();
     } else {

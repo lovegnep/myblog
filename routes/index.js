@@ -93,6 +93,7 @@ router.get('/', function(req, res, next) {
 
 });
 router.get('/login',function(req, res, next){
+
     var imgdata = canvas.create();
     req.session.code = imgdata.code;
     res.render('login',{title:'login',imgdata:imgdata.data});
@@ -103,20 +104,17 @@ router.post('/login',function(req, res, next){
   var code = req.body.valida_img;
 
   if(!req.session.code || req.session.code !== code){
-      var imgdata = canvas.create();
-      req.session.code = imgdata.code;
-    res.render('login',{title:'login',error:'验证码不正确',imgdata:imgdata.data}) ;
+      //var imgdata = canvas.create();
+      //req.session.code = imgdata.code;
+    res.send({status:0,err:'验证码不正确'}) ;
     return;
   }
-
   if(name === config.la && pass === config.lb){
-    //req.session.user='admin';
       gen_session(res);
-    res.redirect('/admin');
+
+    res.send({status:1,err:''});
   }else{
-      var imgdata = canvas.create();
-      req.session.code = imgdata.code;
-    res.render('login',{title:'login',error:'用户名或密码错误',imgdata:imgdata.data});
+    res.send({status:0,err:'帐号或者密码不正确'});
   }
 });
 router.post('/login/validate_img',function (req,res,next){
