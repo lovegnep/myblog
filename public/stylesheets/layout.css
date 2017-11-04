@@ -24,7 +24,10 @@ body{
     text-align: center;
 }
 .content{
-    /*margin-left:185px;*/
+    float: left;
+    width: 750px;
+    padding-left: 20px;
+    margin-bottom: 10px;
 }
 .author-card{
     margin-bottom:15px;
@@ -182,9 +185,7 @@ img{
     padding-left: 10px;
     padding-bottom: 10px;
 }
-.CodeMirror{
-    height:180px;
-}
+
 .themelist{
     background-color: #f6f6f6;
 }
@@ -264,9 +265,7 @@ img{
 
 }
 .main-div{
-    float: left;
-    width: 750px;
-    padding-left: 20px;
+
 }
 .btn-control{
     border: none;
@@ -300,7 +299,19 @@ img{
     z-index: 20;
     background-color: white;
     border-radius: 12px 0px 0px 12px;
+
 }
 #backtotop{
     width:56px
+}
+
+.newtheme{
+    background-color: #f9f9f9;
+    padding: 5px;
+}
+.themeview{
+    float: left;
+    width: 750px;
+    padding-left: 20px;
+    margin-bottom: 10px;
 }
