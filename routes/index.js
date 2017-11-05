@@ -7,7 +7,7 @@ var Reply      = models.Reply;
 var eventproxy = require('eventproxy');
 var store        = require('../common/store');
 var canvas = require('../canvas-img/validate');
-
+var statics = require('../statistics');
 function gen_session(res) {
     var opts = {
         path: '/',
@@ -26,7 +26,7 @@ router.get('/str',function(req,res,next){
 /* 用户*/
 router.get('/', function(req, res, next) {
     console.log('ip:'+req.ip);
-
+console.log("路由访问次数"+res.locals.viewCount.toString());
   var tab = req.query.tab||'all';
   var page = parseInt(req.query.page, 10) || 1;
   page = page > 0 ? page : 1;

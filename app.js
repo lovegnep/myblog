@@ -11,6 +11,7 @@ var config = require('./config');
 var _ = require('lodash');
 var busboy = require('connect-busboy');
 var bytes = require('bytes');
+var statics = require('./statistics');
 var app = express();
 
 var RateLimit = require('express-rate-limit');
@@ -68,6 +69,9 @@ app.use('/',function (req,res,next) {
    }
    next();
 });
+/*views count statistics*/
+app.use('/',statics());
+
 app.use('/', index);
 
 // catch 404 and forward to error handler
