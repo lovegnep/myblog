@@ -5,8 +5,8 @@
 var path = require('path');
 
 var config = {
-    la:'hehe',
-    lb:'haha',
+    la:'wumin',
+    lb:'0316',
     name: 'blog', // 社区名字
     description: '可知天涯有几可 乐盼西窗剪烛乐', // 社区的描述
     keywords: '鸡鸣晨枝莺成排 翅收哀鸣怨入骨',
@@ -27,12 +27,12 @@ var config = {
     auth_cookie_val:'peng',
 
     // 程序运行的端口
-    port: 80,
+    port: 4000,
     upload: {
         path: path.join(__dirname, 'public/upload/'),
         url: '/upload/'
     },
-    file_limit: '1MB',
+    file_limit: '10MB',
     // 话题列表显示的话题数量
     list_topic_count: 15,
     site_static_host: '', // 静态文件存储域名
