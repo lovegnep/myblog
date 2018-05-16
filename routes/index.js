@@ -8,6 +8,7 @@ var eventproxy = require('eventproxy');
 var store        = require('../common/store');
 var canvas = require('../canvas-img/validate');
 var statics = require('../statistics');
+var client = require('../redis');
 function gen_session(res) {
     var opts = {
         path: '/',
@@ -27,12 +28,12 @@ router.get('/str',function(req,res,next){
 router.get('/', function(req, res, next) {
     console.log('ip:'+req.ip);
 console.log("路由访问次数"+res.locals.viewCount.toString());
-  var tab = req.query.tab||'all';
+  var tab = req.query.tab||'全部';
   var page = parseInt(req.query.page, 10) || 1;
   page = page > 0 ? page : 1;
     res.locals.sidebar=true;
   var query = {};
-  if(tab !== 'all'){
+  if(tab !== '全部'){
     query.tab = tab;
   }
   var limit = config.list_topic_count;
@@ -42,14 +43,29 @@ console.log("路由访问次数"+res.locals.viewCount.toString());
         query.secret = false;
     }
   var proxy = new eventproxy();
-  proxy.all('all','topview','topreply','count',function(t1,t2,t3,c){
+  proxy.all('all','topview','topreply','count', 'types', function(t1,t2,t3,c,types){
     res.locals.topview = t2;
     res.locals.topreply=t3;
     res.locals.count = c;
     res.locals.page=page;
     res.locals.currenttab = tab;
-    res.render('index', { title: '好想吃肉',theme:t1});
+    res.render('index', { title: '好想吃肉',theme:t1, types:types});
   });
+
+  //find types
+    client.smembers('types', function(err, data){
+        if(err){
+            console.log('getTypeList:', err);
+            proxy.emit('types',['全部']);
+        }
+        if(!data || data.length < 1){
+            proxy.emit('types',['全部']);
+        }else{
+            proxy.emit('types',['全部',...data]);
+        }
+
+    });
+
   //查询主题数量
   Theme.count({secret:false},function (err,count) {
       if(err){

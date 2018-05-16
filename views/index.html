@@ -1,15 +1,9 @@
 
 <div class="content">
     <div class="themelisthead">
-
-        <%  if(typeof(config.tabs) !== 'undefined' && config.tabs.length > 0) { %>
-        <%  var tabs = config.tabs;
-            var tt = typeof(currenttab) !=='undefined'?currenttab:''; %>
-        <span class="<%= tt==='all'?'themetab-static':'themetab' %>"><a href="/?tab=all">全部</a></span>
-        <%    tabs.forEach(function(tab,i){ %>
-        <span class="<%= tt===tab[0]?'themetab-static':'themetab' %>"><a href="/?tab=<%= tab[0] %>"><%= tab[1] %></a></span>
+        <%    types.forEach(function(tab,i){ %>
+        <span class="<%= currenttab===tab?'themetab-static':'themetab' %>"><a href="/?tab=<%= tab %>"><%= tab %></a></span>
         <% }); %>
-        <% } %>
     </div>
     <% if(typeof(theme) !== 'undefined' && theme.length > 0) { %>
     <div class="themelist">
