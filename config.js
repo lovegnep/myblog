@@ -20,7 +20,7 @@ var config = {
 
     author:'好想吃肉',
     // mongodb 配置
-    db: 'mongodb://127.0.0.1/myblog',
+    db: 'mongodb://172.18.223.34:20006/myblog',
 
     session_secret: 'hehehaha', // 务必修改
     auth_cookie_name: 'gnep',
@@ -29,7 +29,7 @@ var config = {
     // 程序运行的端口
     port: 4000,
     upload: {
-        path: path.join(__dirname, 'public/upload/'),
+        path: '/home/static/upload',
         url: '/upload/'
     },
     file_limit: '10MB',

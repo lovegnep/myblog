@@ -194,7 +194,7 @@ router.post('/admin',function(req,res,next){
   }else if(title.length <= 7 || title.length >= 50){
     err='标题字数太多或者太少';
   }else if(allTabs.indexOf(tab) == -1){
-    err='非法类型';
+    //err='非法类型';
   }else if(t_content==''||t_content.length<=10){
     err='文章内容太少';
   }

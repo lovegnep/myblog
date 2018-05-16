@@ -51,7 +51,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser(config.session_secret));
-app.use(express.static(path.join(__dirname, 'public')));
+//app.use(express.static('/home/static'));
 app.use(session({
     secret: config.session_secret,
     resave: false,
@@ -73,7 +73,7 @@ app.use('/',function (req,res,next) {
 app.use('/',statics());
 
 app.use('/', index);
-
+app.use(express.static('/home/static'));
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
