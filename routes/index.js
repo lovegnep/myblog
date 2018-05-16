@@ -557,7 +557,20 @@ router.post('/theme/:id/delesecret',function (req,res,next) {
 });
 router.get('/newtheme',function(req,res,next){
     if(typeof(req.session.user) !== 'undefined' && req.session.user === 'admin'){
-        res.render('themeCreate',{title:'新建主题',title_e:'',content:''});
+        client.smembers('types', function(err, data){
+            let types = ['全部']
+            if(err){
+                console.log('getTypeList:', err);
+                //proxy.emit('types',['全部']);
+            }
+            if(!data || data.length < 1){
+                //proxy.emit('types',['全部']);
+            }else{
+                types = [...types, ...data];
+            }
+            res.render('themeCreate',{title:'新建主题',title_e:'',content:'',types:types});
+        });
+
     }else{
         console.log("wocao");
         res.redirect('/');

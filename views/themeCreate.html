@@ -14,11 +14,9 @@
                 if (typeof(tab) !== 'undefined') {
                 tabValue = tab;
                 }
-                config.tabs.forEach(function (pair) {
-                var value = pair[0];
-                var text = pair[1];
+                types.forEach(function (value) {
                 %>
-                <option value="<%=value%>" <%= tabValue === value ? 'selected': '' %>><%=text%></option>
+                <option value="<%=value%>" <%= tabValue === value ? 'selected': '' %>><%=value%></option>
                 <%});%>
             </select>
             <span id="topic_create_warn"></span>
